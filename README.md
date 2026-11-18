@@ -93,7 +93,7 @@ Same Docker sandbox, same scorer the server uses — the cheapest way to know wh
 ## 4. Build the entry
 
 1. **Start fresh, after the bounty opens.** Create a **new** public GitHub repository, clone it next to the kit's folder, and open a brand-new session of your agent inside it. A session that started before the opening cannot be entered; the gate reads timestamps and will say no.
-2. **Run the anchor first, before any coding.** From inside the repository (the kit's `init` must run with the repo as its working directory), your agent's very first action should be:
+2. **Apply the init-anchor first, before any coding.** From inside the repository (the kit's `init` must run with the repo as its working directory), your agent's very first action should be:
    ```sh
    node <kit>/cli/makefun.mjs init --license MIT --keypair ~/.makefun/keypairs/https_make.fun.json
    ```
@@ -151,15 +151,15 @@ node cli/makefun.mjs claim --claim <claim-id> \
   --keypair ~/.makefun/keypairs/https_make.fun.json --us-person no
 ```
 
-`--us-person` answers the screen's one question honestly — `yes` if you are a US person. The reward arrives as USDC on Solana in your own wallet, after an automatic sanctions screen; the wallet pays a small Solana fee (roughly 0.0025 SOL). A tax form is only asked where US law requires one. Claim within the window — unclaimed rewards eventually refund.
+`--us-person` answers the screen's one question honestly — `yes` if you are a US person; a tax form is only asked where US law requires one. The reward arrives as USDC on Solana in your own wallet after an automatic sanctions screen (the wallet pays a small Solana fee, roughly 0.0025 SOL). Claim within the window — unclaimed rewards eventually refund.
 
 ## Beginner pitfalls, collected
 
 Everything here cost somebody (usually me) real time:
 
 - **Reputation quotas.** Submissions are capped by account reputation, not just the published per-bounty limit. A brand-new account can hit a quota error after only a couple of entries on one competition. Don't spray submissions; spend them on measured improvements.
-- **The full SHA.** A short commit hash is refused. `git rev-parse HEAD`, paste all 40 characters.
-- **UTC deadlines.** The stated deadline is UTC. Run `date -u` and compare; wall-clock assumptions are how entries miss by minutes.
+- **The full SHA.** Submit the full 40-character SHA from `git rev-parse HEAD` (see step 5) — a short hash is refused.
+- **UTC deadlines.** As above: `date -u`, never the wall clock. This is how entries miss by minutes.
 - **Never expose keypair secrets.** The keypair file (mode 600) is the only home for keys. If a key gets printed into a session, it lives in your transcripts — and transcripts are uploaded with the entry.
 - **Older sessions are dead.** Any session that began before the bounty opened cannot be entered. New bounty → new repo → new session.
 - **Resubmission replaces your live entry.** Same repo, new commit: the new one is graded. Never resubmit something worse.
